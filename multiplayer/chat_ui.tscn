@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://de4k70fiiw84y"]
+
+[ext_resource type="Script" uid="uid://t40dy3n0ejys" path="res://multiplayer/chat_ui.gd" id="1_hixvo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chat"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.1, 0.1, 0.1, 0.25)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ChatUI" type="CanvasLayer" unique_id=2133762575]
+layer = 15
+script = ExtResource("1_hixvo")
+
+[node name="Control" type="Control" parent="." unique_id=2133762576]
+layout_mode = 3
+anchor_top = 0.45
+anchor_right = 0.28
+anchor_bottom = 1.0
+offset_right = -0.2800293
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=189032835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer" unique_id=1280804859]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_chat")
+scroll_following = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1876287684]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer" unique_id=1550288323]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Digite sua mensagem..."
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer" unique_id=795688127]
+layout_mode = 2
+text = "Send"
+
+[node name="Timer" type="Timer" parent="." unique_id=368216804]
+one_shot = true

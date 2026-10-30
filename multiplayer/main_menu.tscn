@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://cq3xa5p6so77d"]
+
+[ext_resource type="Script" uid="uid://bc6pk0yp4wfo8" path="res://multiplayer/main_menu.gd" id="1_fu7sn"]
+[ext_resource type="Script" uid="uid://cfoypjmbsxbie" path="res://multiplayer/lobby.gd" id="2_7vrkn"]
+
+[node name="MainMenu" type="Control" unique_id=971520235]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fu7sn")
+
+[node name="NetworkUI" type="Control" parent="." unique_id=759051732]
+anchors_preset = 0
+offset_right = 231.0
+offset_bottom = 290.0
+
+[node name="Host" type="Button" parent="NetworkUI" unique_id=2052104881]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 55.0
+grow_horizontal = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="NetworkUI" unique_id=2104816262]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 55.0
+offset_bottom = 110.0
+grow_horizontal = 2
+text = "Join"
+
+[node name="Ip" type="LineEdit" parent="NetworkUI" unique_id=1733109854]
+layout_mode = 0
+offset_top = 110.0
+offset_right = 231.0
+offset_bottom = 144.0
+text = "127.0.0.1"
+placeholder_text = "Digite o IP Address"
+
+[node name="Port" type="LineEdit" parent="NetworkUI" unique_id=966876006]
+layout_mode = 0
+offset_top = 144.0
+offset_right = 231.0
+offset_bottom = 178.0
+text = "7000"
+placeholder_text = "Digite a Porta"
+
+[node name="MaxPlayers" type="LineEdit" parent="NetworkUI" unique_id=1234567890]
+layout_mode = 0
+offset_top = 178.0
+offset_right = 231.0
+offset_bottom = 212.0
+placeholder_text = "Max Jogadores (Padrão: 32)"
+
+[node name="Nick" type="LineEdit" parent="NetworkUI" unique_id=981343789]
+layout_mode = 0
+offset_top = 212.0
+offset_right = 231.0
+offset_bottom = 246.0
+placeholder_text = "Digite seu nome"
+
+[node name="ErrorLabel" type="Label" parent="NetworkUI" unique_id=1987654321]
+layout_mode = 0
+offset_top = 250.0
+offset_right = 231.0
+offset_bottom = 300.0
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+autowrap_mode = 2
+
+[node name="Lobby" type="Control" parent="." unique_id=944996739]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -162.0
+offset_right = 288.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_7vrkn")
+
+[node name="PlayersContainer" type="VBoxContainer" parent="Lobby" unique_id=918390738]
+layout_mode = 1
+offset_right = 576.0
+offset_bottom = 255.0
+
+[node name="PlayerLobby" type="HBoxContainer" parent="Lobby/PlayersContainer" unique_id=680468110]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Lobby/PlayersContainer/PlayerLobby" unique_id=487891700]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckButton" type="CheckButton" parent="Lobby/PlayersContainer/PlayerLobby" unique_id=919436295]
+layout_mode = 2
+text = "ready"
+
+[node name="KickButton" type="Button" parent="Lobby/PlayersContainer/PlayerLobby" unique_id=399613260]
+layout_mode = 2
+text = "Kick"
+
+[node name="BanButton" type="Button" parent="Lobby/PlayersContainer/PlayerLobby" unique_id=399613261]
+layout_mode = 2
+text = "Ban"
+
+[node name="LeaveButton" type="Button" parent="Lobby" unique_id=9876543210]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.812
+anchor_right = 0.3
+anchor_bottom = 1.0
+text = "Sair da Sala"
+
+[node name="BanlistButton" type="Button" parent="Lobby" unique_id=9876543211]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34
+anchor_top = 0.812
+anchor_right = 0.64
+anchor_bottom = 1.0
+text = "Banidos (0)"
+
+[node name="StartGame" type="Button" parent="Lobby" unique_id=854111346]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.68
+anchor_top = 0.812
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "START GAME"
+
+[connection signal="pressed" from="NetworkUI/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="NetworkUI/Join" to="." method="_on_join_pressed"]

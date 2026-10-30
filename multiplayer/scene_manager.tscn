@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://fdd463igo73l"]
+
+[ext_resource type="Script" uid="uid://cmom45ep523at" path="res://multiplayer/SceneManager.gd" id="1_jo5df"]
+
+[node name="SceneManager" type="Node" unique_id=155179262]
+script = ExtResource("1_jo5df")
+main_menu_scene = "res://multiplayer/main_menu.tscn"
+game_scene = "uid://bha53u0ap5dng"
