@@ -35,7 +35,7 @@ func change_scene(scene: String) -> void:
 	await tween.finished
 	
 	# Lock de players: fecha para novas conexões durante o jogo
-	if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+	if NetworkManager.is_host():
 		multiplayer.multiplayer_peer.refuse_new_connections = _is_same_scene(scene, GAME)
 	
 	get_tree().change_scene_to_file(scene)

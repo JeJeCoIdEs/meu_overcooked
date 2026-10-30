@@ -67,7 +67,7 @@ func _on_leave_lobby() -> void:
 	NetworkManager.leave_lobby()
 
 func hide_client_buttons() -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server():
+	if not NetworkManager.is_host():
 		start_game.hide()
 		if banlist_button:
 			banlist_button.hide()
@@ -78,7 +78,7 @@ func hide_client_buttons() -> void:
 			banlist_button.text = "Banidos (%d)" % NetworkManager.banned_players.size()
 
 func enable_start_button() -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server():
+	if not NetworkManager.is_host():
 		start_game.disabled = true
 		return
 	
@@ -106,9 +106,9 @@ func update_slots() -> void:
 			node.queue_free()
 			
 	# Criar ou atualizar slots
-	var has_peer = multiplayer.has_multiplayer_peer()
-	var my_id = multiplayer.get_unique_id() if has_peer else 0
-	var is_host = has_peer and multiplayer.is_server()
+	var is_active = NetworkManager.is_multiplayer_active()
+	var my_id = multiplayer.get_unique_id() if is_active else 0
+	var is_host = NetworkManager.is_host()
 
 	for pid in NetworkManager.players_data.keys():
 		var node = players_container.get_node_or_null(str(pid))
@@ -232,5 +232,5 @@ func _on_ready_toggled(is_pressed: bool) -> void:
 	NetworkManager.set_ready.rpc(is_pressed)
 
 func _on_start_game() -> void:
-	if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+	if NetworkManager.is_host():
 		SceneManager.change_scene.rpc(SceneManager.GAME)

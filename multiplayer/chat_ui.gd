@@ -35,7 +35,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_text_submit") or event.is_action_pressed("ui_accept"):
-		if not multiplayer.has_multiplayer_peer():
+		if not NetworkManager.is_multiplayer_active():
 			return
 		if not line_edit.has_focus():
 			line_edit.grab_focus()
@@ -79,7 +79,7 @@ func _try_send_message(text: String) -> void:
 		timer.start(2.5)
 		return
 	
-	if not multiplayer.has_multiplayer_peer():
+	if not NetworkManager.is_multiplayer_active():
 		timer.start(2.5)
 		return
 		
@@ -93,12 +93,12 @@ func _try_send_message(text: String) -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func request_send_message(msg: String) -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server():
+	if not NetworkManager.is_host():
 		return
 	
 	var sender_id = multiplayer.get_remote_sender_id()
 	if sender_id == 0:
-		sender_id = multiplayer.get_unique_id() if multiplayer.has_multiplayer_peer() else 1
+		sender_id = multiplayer.get_unique_id() if NetworkManager.is_multiplayer_active() else 1
 	
 	var now = Time.get_ticks_msec()
 	if now - peer_last_send_time.get(sender_id, 0) < CLIENT_COOLDOWN_MS:

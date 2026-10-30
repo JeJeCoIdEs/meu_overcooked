@@ -17,6 +17,12 @@ signal players_updated
 signal connection_error(message: String)
 signal banlist_updated
 
+func is_multiplayer_active() -> bool:
+	return multiplayer.has_multiplayer_peer() and multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
+
+func is_host() -> bool:
+	return is_multiplayer_active() and multiplayer.is_server()
+
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
@@ -25,7 +31,7 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func _process(delta: float) -> void:
-	if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+	if is_host():
 		ping_timer += delta
 		if ping_timer >= 1.5:
 			ping_timer = 0.0
@@ -59,7 +65,7 @@ func sync_pings(pings: Dictionary) -> void:
 
 func _on_peer_connected(pid: int) -> void:
 	print("novo peer conectado: " + str(pid))
-	if multiplayer.is_server():
+	if is_host():
 		# Verificar limite máximo de jogadores
 		if players_data.size() >= max_players:
 			print("Servidor lotado (%d/%d). Desconectando peer %d" % [players_data.size(), max_players, pid])
@@ -84,7 +90,7 @@ func _on_peer_connected(pid: int) -> void:
 	
 func _on_peer_disconnected(pid: int) -> void:
 	print("peer desconectado: " + str(pid))
-	if multiplayer.is_server():
+	if is_host():
 		if pid in kicked_peers:
 			kicked_peers.erase(pid)
 			if players_data.has(pid):
@@ -117,9 +123,10 @@ func _on_failed_to_connect() -> void:
 	connection_error.emit(last_error_message)
 	
 func _on_server_disconnected() -> void:
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer = null
 	players_data.clear()
 	players_updated.emit()
-	multiplayer.multiplayer_peer = null
 	ChatUi.system_message("A conexão com o servidor foi encerrada.", true)
 	last_error_message = "A conexão com o servidor foi encerrada."
 	connection_error.emit(last_error_message)
@@ -164,7 +171,7 @@ func join_server(ip: String, port: int, nick: String):
 	return err
 
 func kick_player(pid: int) -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server() or pid == 1:
+	if not is_host() or pid == 1:
 		return
 	var now = Time.get_ticks_msec()
 	if now - last_kick_time < 500:
@@ -182,7 +189,7 @@ func kick_player(pid: int) -> void:
 		multiplayer.multiplayer_peer.disconnect_peer(pid)
 
 func ban_player(pid: int) -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server() or pid == 1:
+	if not is_host() or pid == 1:
 		return
 	var peer = multiplayer.multiplayer_peer as ENetMultiplayerPeer
 	if not peer:
@@ -205,7 +212,7 @@ func ban_player(pid: int) -> void:
 	banlist_updated.emit()
 
 func unban_ip(ip: String) -> void:
-	if not multiplayer.has_multiplayer_peer() or not multiplayer.is_server():
+	if not is_host():
 		return
 	if banned_players.has(ip):
 		var nome = banned_players[ip]
@@ -250,7 +257,7 @@ func sync_players(players_info: Dictionary) -> void:
 
 @rpc("any_peer", "call_remote", "reliable")
 func send_nick(nick: String) -> void:
-	if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+	if is_host():
 		var sender_id = multiplayer.get_remote_sender_id()
 		var clean_nick = sanitize_nickname(nick, sender_id)
 		if not players_data.has(sender_id):
@@ -261,7 +268,7 @@ func send_nick(nick: String) -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func set_ready(is_ready: bool) -> void:
-	if multiplayer.has_multiplayer_peer() and multiplayer.is_server():
+	if is_host():
 		var sender_id = multiplayer.get_remote_sender_id()
 		if sender_id == 0:
 			sender_id = 1
