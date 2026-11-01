@@ -34,7 +34,7 @@ func _ready() -> void:
 	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_text_submit") or event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_text_submit"):
 		if not NetworkManager.is_multiplayer_active():
 			return
 		if not line_edit.has_focus():

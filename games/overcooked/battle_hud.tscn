@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://dcplofb8n4cmi"]
+
+[ext_resource type="Script" uid="uid://c6aqlthd1yyjc" path="res://games/overcooked/battle_hud.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://conenol2i8fkl" path="res://games/overcooked/assets/salad.png" id="2_salad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_order"]
+bg_color = Color(0.12, 0.12, 0.14, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.75, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1"]
+bg_color = Color(0.18, 0.55, 0.95, 1)
+corner_radius_top_left = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2"]
+bg_color = Color(0.95, 0.3, 0.2, 1)
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.08, 0.1, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.8, 0.2, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="BattleHUD" type="CanvasLayer" unique_id=12273437]
+layer = 50
+script = ExtResource("1_script")
+
+[node name="TopBar" type="Control" parent="." unique_id=1323623419]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+
+[node name="OrdersPanel" type="PanelContainer" parent="TopBar" unique_id=917492004]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 170.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_order")
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/OrdersPanel" unique_id=1245984175]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SaladIcon" type="TextureRect" parent="TopBar/OrdersPanel/HBox" unique_id=678782703]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_salad")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OrderTitle" type="Label" parent="TopBar/OrdersPanel/HBox" unique_id=447984066]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "PEDIDO: SALADA"
+
+[node name="TugOfWarBar" type="ProgressBar" parent="TopBar" unique_id=538419651]
+custom_minimum_size = Vector2(360, 24)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_top = 22.0
+offset_right = 180.0
+offset_bottom = 46.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_p1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p2")
+value = 50.0
+show_percentage = false
+
+[node name="P1Label" type="Label" parent="TopBar" unique_id=763916850]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 24.0
+offset_right = -190.0
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.3, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "🔵 P1 (Host)"
+horizontal_alignment = 2
+
+[node name="P2Label" type="Label" parent="TopBar" unique_id=986478213]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 190.0
+offset_top = 24.0
+offset_right = 290.0
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 14
+text = "🔴 P2 (Rival)"
+
+[node name="VictoryPanel" type="Panel" parent="." unique_id=989699118]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -100.0
+offset_right = 250.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VictoryLabel" type="Label" parent="VictoryPanel" unique_id=1391274465]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -220.0
+offset_top = 35.0
+offset_right = 220.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "🏆 JOGADOR 1 VENCEU!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="VictoryPanel" unique_id=1724995758]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Reiniciar Duelo"

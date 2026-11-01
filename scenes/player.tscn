@@ -1,19 +1,339 @@
 [gd_scene format=3 uid="uid://c4moe5kne6hjw"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cia0c6m348ppb" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://fy76j4jxrtex" path="res://games/overcooked/assets/chef/hold_idle/down.png" id="2_8svfe"]
+[ext_resource type="Texture2D" uid="uid://b24aheo3pjobl" path="res://games/overcooked/assets/chef/chef_down.png" id="2_chef_down"]
+[ext_resource type="Texture2D" uid="uid://begacyx0g6hj0" path="res://games/overcooked/assets/chef/hold_idle/left.png" id="3_2a3c5"]
+[ext_resource type="Texture2D" uid="uid://dcpb7r8yhn1vh" path="res://games/overcooked/assets/chef/chef_up.png" id="3_chef_up"]
+[ext_resource type="Texture2D" uid="uid://b5ehqc8mcsfn6" path="res://games/overcooked/assets/chef/hold_idle/right.png" id="4_42b1b"]
+[ext_resource type="Texture2D" uid="uid://ctwjr8fco4jnt" path="res://games/overcooked/assets/chef/chef_left.png" id="4_chef_left"]
+[ext_resource type="Texture2D" uid="uid://baedwwxwh2854" path="res://games/overcooked/assets/chef/chef_right.png" id="5_chef_right"]
+[ext_resource type="Texture2D" uid="uid://0ccn8t7nakba" path="res://games/overcooked/assets/chef/hold_idle/up.png" id="5_h7ic4"]
+[ext_resource type="Texture2D" uid="uid://yihithvrqn4l" path="res://games/overcooked/assets/chef/hold_walk/down/frame_000.png" id="6_au7lq"]
+[ext_resource type="Texture2D" uid="uid://cgs1uf4l3frmm" path="res://games/overcooked/assets/chef/hold_walk/down/frame_001.png" id="7_nubpm"]
+[ext_resource type="Texture2D" uid="uid://bctut2g55we3a" path="res://games/overcooked/assets/chef/hold_walk/down/frame_002.png" id="8_ua5cf"]
+[ext_resource type="Texture2D" uid="uid://dvwgmj8xyfsv" path="res://games/overcooked/assets/chef/hold_walk/down/frame_003.png" id="9_51ujp"]
+[ext_resource type="Texture2D" uid="uid://dawwkk6kbqwp3" path="res://games/overcooked/assets/chef/hold_walk/down/frame_004.png" id="10_tk41t"]
+[ext_resource type="Texture2D" uid="uid://brtmxnh74f3ld" path="res://games/overcooked/assets/chef/hold_walk/down/frame_005.png" id="11_fuw3a"]
+[ext_resource type="Texture2D" uid="uid://c2vpidw46h0y0" path="res://games/overcooked/assets/chef/hold_walk/left/frame_000.png" id="12_8txt3"]
+[ext_resource type="Texture2D" uid="uid://jnb52gadoo75" path="res://games/overcooked/assets/chef/hold_walk/left/frame_001.png" id="13_2w11d"]
+[ext_resource type="Texture2D" uid="uid://b7nmyo0v3m73y" path="res://games/overcooked/assets/chef/hold_walk/left/frame_002.png" id="14_770dr"]
+[ext_resource type="Texture2D" uid="uid://h1x3p5nhea3t" path="res://games/overcooked/assets/chef/hold_walk/left/frame_003.png" id="15_8f1cb"]
+[ext_resource type="Texture2D" uid="uid://b2fotcnpo88cj" path="res://games/overcooked/assets/chef/hold_walk/left/frame_004.png" id="16_vdulj"]
+[ext_resource type="Texture2D" uid="uid://hnrbr8rxmm82" path="res://games/overcooked/assets/chef/hold_walk/left/frame_005.png" id="17_vau08"]
+[ext_resource type="Texture2D" uid="uid://bs8jght5dcgf3" path="res://games/overcooked/assets/chef/hold_walk/right/frame_000.png" id="18_qsb7e"]
+[ext_resource type="Texture2D" uid="uid://cyo6aak6w6sf6" path="res://games/overcooked/assets/chef/hold_walk/right/frame_001.png" id="19_qjsmb"]
+[ext_resource type="Texture2D" uid="uid://dih62qev427c2" path="res://games/overcooked/assets/chef/hold_walk/right/frame_002.png" id="20_mwp2n"]
+[ext_resource type="Texture2D" uid="uid://nch8os2taxdw" path="res://games/overcooked/assets/chef/hold_walk/right/frame_003.png" id="21_0yhus"]
+[ext_resource type="Texture2D" uid="uid://7fw2xvahoouw" path="res://games/overcooked/assets/chef/hold_walk/right/frame_004.png" id="22_jlll7"]
+[ext_resource type="Texture2D" uid="uid://btupn1kycc18c" path="res://games/overcooked/assets/chef/hold_walk/right/frame_005.png" id="23_qk6i7"]
+[ext_resource type="Texture2D" uid="uid://bvvlohohw4n67" path="res://games/overcooked/assets/chef/hold_walk/up/frame_000.png" id="24_6c3st"]
+[ext_resource type="Texture2D" uid="uid://75v82haemb4u" path="res://games/overcooked/assets/chef/hold_walk/up/frame_001.png" id="25_1da1t"]
+[ext_resource type="Texture2D" uid="uid://cvp8u7vdxycmm" path="res://games/overcooked/assets/chef/hold_walk/up/frame_002.png" id="26_p21yu"]
+[ext_resource type="Texture2D" uid="uid://x67ml1012el4" path="res://games/overcooked/assets/chef/hold_walk/up/frame_003.png" id="27_irpag"]
+[ext_resource type="Texture2D" uid="uid://br550bbaqer1t" path="res://games/overcooked/assets/chef/hold_walk/up/frame_004.png" id="28_bpsgo"]
+[ext_resource type="Texture2D" uid="uid://cfp1of5bqh75f" path="res://games/overcooked/assets/chef/hold_walk/up/frame_005.png" id="29_jx8is"]
+[ext_resource type="Texture2D" uid="uid://bu6ixf4huthnv" path="res://games/overcooked/assets/chef/walk/down/frame_000.png" id="34_vx63k"]
+[ext_resource type="Texture2D" uid="uid://b30ph2rvjdole" path="res://games/overcooked/assets/chef/walk/down/frame_001.png" id="35_lw0jh"]
+[ext_resource type="Texture2D" uid="uid://b0hmtdxh6xns7" path="res://games/overcooked/assets/chef/walk/down/frame_002.png" id="36_ry8ed"]
+[ext_resource type="Texture2D" uid="uid://cphnosewb747x" path="res://games/overcooked/assets/chef/walk/down/frame_003.png" id="37_au8ao"]
+[ext_resource type="Texture2D" uid="uid://72l1okwjsv2a" path="res://games/overcooked/assets/chef/walk/down/frame_004.png" id="38_w5j5w"]
+[ext_resource type="Texture2D" uid="uid://cvurv4ehqaqno" path="res://games/overcooked/assets/chef/walk/down/frame_005.png" id="39_cbf1i"]
+[ext_resource type="Texture2D" uid="uid://bt0l5c6sxm1p0" path="res://games/overcooked/assets/chef/walk/left/frame_000.png" id="40_4vfid"]
+[ext_resource type="Texture2D" uid="uid://ciblvel4yyqqe" path="res://games/overcooked/assets/chef/walk/left/frame_001.png" id="41_ljgr3"]
+[ext_resource type="Texture2D" uid="uid://cbfwmjk2omff6" path="res://games/overcooked/assets/chef/walk/left/frame_002.png" id="42_fr8ja"]
+[ext_resource type="Texture2D" uid="uid://c8w7i02m6dlk" path="res://games/overcooked/assets/chef/walk/left/frame_003.png" id="43_gvmy4"]
+[ext_resource type="Texture2D" uid="uid://biknecavvja3r" path="res://games/overcooked/assets/chef/walk/left/frame_004.png" id="44_fcu33"]
+[ext_resource type="Texture2D" uid="uid://c6na3xc5ajvxv" path="res://games/overcooked/assets/chef/walk/left/frame_005.png" id="45_qmsq4"]
+[ext_resource type="Texture2D" uid="uid://ptq8dyirt4cd" path="res://games/overcooked/assets/chef/walk/right/frame_000.png" id="46_5vs2b"]
+[ext_resource type="Texture2D" uid="uid://dnl3e3n442tv2" path="res://games/overcooked/assets/chef/walk/right/frame_001.png" id="47_a7i4v"]
+[ext_resource type="Texture2D" uid="uid://e48wuby1rmqu" path="res://games/overcooked/assets/chef/walk/right/frame_002.png" id="48_b5l0c"]
+[ext_resource type="Texture2D" uid="uid://gw6li7f3dytj" path="res://games/overcooked/assets/chef/walk/right/frame_003.png" id="49_2a33p"]
+[ext_resource type="Texture2D" uid="uid://bmummxsse5ybv" path="res://games/overcooked/assets/chef/walk/right/frame_004.png" id="50_reqs7"]
+[ext_resource type="Texture2D" uid="uid://ck057y2t37kqw" path="res://games/overcooked/assets/chef/walk/right/frame_005.png" id="51_2yjfb"]
+[ext_resource type="Texture2D" uid="uid://b6dxpe88m1jss" path="res://games/overcooked/assets/chef/walk/up/frame_000.png" id="52_dnnjp"]
+[ext_resource type="Texture2D" uid="uid://cljp4wx0sao8m" path="res://games/overcooked/assets/chef/walk/up/frame_001.png" id="53_wqna8"]
+[ext_resource type="Texture2D" uid="uid://blb31qr4boktd" path="res://games/overcooked/assets/chef/walk/up/frame_002.png" id="54_l7gmo"]
+[ext_resource type="Texture2D" uid="uid://c1xbxfn0j77e2" path="res://games/overcooked/assets/chef/walk/up/frame_003.png" id="55_kft7l"]
+[ext_resource type="Texture2D" uid="uid://yrf8gl21h2v5" path="res://games/overcooked/assets/chef/walk/up/frame_004.png" id="56_2s4os"]
+[ext_resource type="Texture2D" uid="uid://cihdwo7nta833" path="res://games/overcooked/assets/chef/walk/up/frame_005.png" id="57_2em0j"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vyb7"]
 properties/0/path = NodePath(":position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(":facing_direction")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(":velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(":is_holding")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u8vuu"]
 radius = 12.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vyb7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8svfe")
+}],
+"loop": true,
+"name": &"hold_idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2a3c5")
+}],
+"loop": true,
+"name": &"hold_idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_42b1b")
+}],
+"loop": true,
+"name": &"hold_idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_h7ic4")
+}],
+"loop": true,
+"name": &"hold_idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_au7lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_nubpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ua5cf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_51ujp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tk41t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fuw3a")
+}],
+"loop": true,
+"name": &"hold_walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_8txt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2w11d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_770dr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_8f1cb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_vdulj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vau08")
+}],
+"loop": true,
+"name": &"hold_walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_qsb7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_qjsmb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_mwp2n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_0yhus")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_jlll7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_qk6i7")
+}],
+"loop": true,
+"name": &"hold_walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_6c3st")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_1da1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_p21yu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_irpag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_bpsgo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_jx8is")
+}],
+"loop": true,
+"name": &"hold_walk_up",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_chef_down")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_chef_left")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_chef_right")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_chef_up")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_vx63k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_lw0jh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_ry8ed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_au8ao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_w5j5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_cbf1i")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_4vfid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_ljgr3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_fr8ja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_gvmy4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_fcu33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_qmsq4")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_5vs2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_a7i4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_b5l0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_2a33p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_reqs7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_2yjfb")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_dnnjp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_wqna8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_l7gmo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_kft7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_2s4os")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_2em0j")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
+radius = 8.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1904876163]
-collision_layer = 3
+z_index = 1
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_3vyb7")
 
@@ -25,3 +345,17 @@ shape = SubResource("CircleShape2D_u8vuu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=558231764]
 sprite_frames = SubResource("SpriteFrames_3vyb7")
+animation = &"idle_down"
+autoplay = "idle_down"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=982347102]
+enabled = false
+zoom = Vector2(2.5, 2.5)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=118589600]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=78036225]
+shape = SubResource("CircleShape2D_3vyb7")
+debug_color = Color(0.86899626, 0.079416566, 0.8275185, 0.41960785)

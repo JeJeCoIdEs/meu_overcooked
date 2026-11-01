@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://cw0aget8e1ep3"]
+
+[ext_resource type="PackedScene" uid="uid://ckjs6o0ajfosn" path="res://games/overcooked/caixa-de-item.tscn" id="1_caixa"]
+[ext_resource type="PackedScene" uid="uid://ddy21yq660m7q" path="res://games/overcooked/bancada.tscn" id="2_bancada"]
+[ext_resource type="PackedScene" uid="uid://bvsm28km5pfxo" path="res://games/overcooked/balcao_entrega.tscn" id="3_balcao"]
+[ext_resource type="PackedScene" uid="uid://c6c5m02g58n1y" path="res://games/overcooked/lixeira.tscn" id="4_lixeira"]
+[ext_resource type="PackedScene" uid="uid://dcplofb8n4cmi" path="res://games/overcooked/battle_hud.tscn" id="5_hud"]
+[ext_resource type="Script" path="res://games/overcooked/battle_manager.gd" id="6_bm_script"]
+[ext_resource type="Texture2D" uid="uid://dyjjmpylhvbgn" path="res://games/overcooked/assets/floor_tile.png" id="7_floor_tex"]
+
+[node name="Mapa1" type="Node2D"]
+y_sort_enabled = true
+
+[node name="BattleHUD" parent="." instance=ExtResource("5_hud")]
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("6_bm_script")
+
+[node name="Floor" type="TextureRect" parent="."]
+z_index = -10
+texture_repeat = 2
+offset_left = 48.0
+offset_top = 104.0
+offset_right = 336.0
+offset_bottom = 266.0
+texture = ExtResource("7_floor_tex")
+stretch_mode = 1
+
+[node name="TopRow" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="CaixaTomate" parent="TopRow" instance=ExtResource("1_caixa")]
+position = Vector2(96, 120)
+type = 2
+
+[node name="CaixaAlface" parent="TopRow" instance=ExtResource("1_caixa")]
+position = Vector2(128, 120)
+type = 1
+
+[node name="CaixaPratos" parent="TopRow" instance=ExtResource("1_caixa")]
+position = Vector2(160, 120)
+type = 3
+
+[node name="BancadaNorte1" parent="TopRow" instance=ExtResource("2_bancada")]
+position = Vector2(192, 120)
+
+[node name="BalcaoEntrega" parent="TopRow" instance=ExtResource("3_balcao")]
+position = Vector2(224, 120)
+
+[node name="Lixeira" parent="TopRow" instance=ExtResource("4_lixeira")]
+position = Vector2(256, 120)
+
+[node name="BancadaNorte2" parent="TopRow" instance=ExtResource("2_bancada")]
+position = Vector2(288, 120)
+
+[node name="BottomRow" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BancadaCorte1" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(96, 250)
+is_cutting_station = true
+
+[node name="BancadaSul1" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(128, 250)
+
+[node name="BancadaSul2" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(160, 250)
+
+[node name="BancadaSul3" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(192, 250)
+
+[node name="BancadaSul4" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(224, 250)
+
+[node name="BancadaSul5" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(256, 250)
+
+[node name="BancadaCorte2" parent="BottomRow" instance=ExtResource("2_bancada")]
+position = Vector2(288, 250)
+is_cutting_station = true
+
+[node name="LeftBorder" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BancadaOeste1" parent="LeftBorder" instance=ExtResource("2_bancada")]
+position = Vector2(64, 120)
+
+[node name="BancadaOeste2" parent="LeftBorder" instance=ExtResource("2_bancada")]
+position = Vector2(64, 152)
+
+[node name="BancadaOeste3" parent="LeftBorder" instance=ExtResource("2_bancada")]
+position = Vector2(64, 184)
+
+[node name="BancadaOeste4" parent="LeftBorder" instance=ExtResource("2_bancada")]
+position = Vector2(64, 218)
+
+[node name="BancadaOeste5" parent="LeftBorder" instance=ExtResource("2_bancada")]
+position = Vector2(64, 250)
+
+[node name="RightBorder" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BancadaLeste1" parent="RightBorder" instance=ExtResource("2_bancada")]
+position = Vector2(320, 120)
+
+[node name="BancadaLeste2" parent="RightBorder" instance=ExtResource("2_bancada")]
+position = Vector2(320, 152)
+
+[node name="BancadaLeste3" parent="RightBorder" instance=ExtResource("2_bancada")]
+position = Vector2(320, 184)
+
+[node name="BancadaLeste4" parent="RightBorder" instance=ExtResource("2_bancada")]
+position = Vector2(320, 218)
+
+[node name="BancadaLeste5" parent="RightBorder" instance=ExtResource("2_bancada")]
+position = Vector2(320, 250)

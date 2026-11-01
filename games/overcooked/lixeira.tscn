@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c6c5m02g58n1y"]
+
+[ext_resource type="Script" path="res://games/overcooked/lixeira.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b1tifr7eout4r" path="res://games/overcooked/assets/trash_can.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lixeira"]
+radius = 8.0
+
+[node name="Lixeira" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_lixeira")

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ckjs6o0ajfosn"]
+
+[ext_resource type="Script" uid="uid://p6nnqjp2c00l" path="res://games/overcooked/caixa_de_item.gd" id="1_l34bw"]
+[ext_resource type="Texture2D" uid="uid://c6dsbb8lcrg3s" path="res://games/overcooked/assets/bancada_madeira.png" id="2_muxbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l34bw"]
+
+[node name="CaixaDeItem" type="StaticBody2D" unique_id=692591005]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_l34bw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1058598062]
+texture = ExtResource("2_muxbr")
+
+[node name="ItemIcon" type="Sprite2D" parent="." unique_id=1058598063]
+position = Vector2(0, -6)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=221828633]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_l34bw")

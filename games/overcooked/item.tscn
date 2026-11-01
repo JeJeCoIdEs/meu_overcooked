@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://co5m3gamxker4"]
+
+[ext_resource type="Script" uid="uid://dwyjnqnlqaxiy" path="res://games/overcooked/item.gd" id="1_ttk8k"]
+[ext_resource type="Texture2D" uid="uid://mqxjr8b2pns5" path="res://games/overcooked/assets/plate.png" id="2_plate"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 8.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6bpeb"]
+properties/0/path = NodePath(":position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(":tipo")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Item" type="Area2D" unique_id=141780799]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ttk8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=184920194]
+shape = SubResource("CircleShape2D_item")
+
+[node name="PlateBackground" type="Sprite2D" parent="." unique_id=6985199]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_plate")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=6985198]
+scale = Vector2(0.5, 0.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=716956150]
+replication_config = SubResource("SceneReplicationConfig_6bpeb")
