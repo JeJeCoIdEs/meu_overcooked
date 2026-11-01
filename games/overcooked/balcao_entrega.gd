@@ -8,18 +8,24 @@ signal item_delivered(player_id: int, item_type: int)
 func can_accept_item(item: Item) -> bool:
 	if not item:
 		return false
-	# Atualmente a salada pronta é a receita aceita
-	return item.tipo == Item.ItemType.SALADA_PRONTA
+	return item.has_method("is_deliverable_recipe") and item.is_deliverable_recipe()
 
 func deliver_item(player_id: int, item: Item) -> bool:
 	if not can_accept_item(item):
 		return false
 	
-	emit_signal("item_delivered", player_id, item.tipo)
+	var item_type = item.tipo
+	var pos = global_position
+	emit_signal("item_delivered", player_id, item_type)
 	
-	# Notifica o BattleManager se existir na cena
+	# Efeito de squash e retorno no balcão
+	var tween = create_tween()
+	scale = Vector2(1.2, 0.85)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
 	var bm = get_tree().get_first_node_in_group("BattleManager")
 	if bm and bm.has_method("register_delivery"):
-		bm.register_delivery(player_id, item.tipo)
+		bm.register_delivery(player_id, item_type, pos)
 	
 	return true
+

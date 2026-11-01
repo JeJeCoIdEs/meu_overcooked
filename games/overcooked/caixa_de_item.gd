@@ -39,6 +39,11 @@ func _update_icon() -> void:
 		icon.texture = null
 	
 func spawn_item() -> NodePath:
+	var containers = get_tree().get_nodes_in_group("Items_container_group")
+	if containers.is_empty():
+		return NodePath()
+		
+	var items_container = containers[0]
 	var item = ITEM.instantiate() as Item
 	
 	var item_type := int(type)
@@ -49,13 +54,7 @@ func spawn_item() -> NodePath:
 	elif type == tipo_caixa.TOMATE:
 		item_type = Item.ItemType.TOMATE
 		
-	item.set_item_type(item_type)
-	
-	var containers = get_tree().get_nodes_in_group("Items_container_group")
-	if containers.is_empty():
-		return NodePath()
-		
-	var items_container = containers[0]
 	items_container.add_child(item, true)
 	item.global_position = self.global_position
+	item.set_item_type(item_type)
 	return item.get_path()

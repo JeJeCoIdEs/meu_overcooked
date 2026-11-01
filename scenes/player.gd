@@ -7,18 +7,26 @@ var hold_item_path: NodePath
 var item_last_position: Vector2
 var is_holding: bool = false
 
+var _shake_intensity: float = 0.0
+var _shake_timer: float = 0.0
+
 @onready var hitbox: Area2D = $Hitbox
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var camera: Camera2D = $Camera2D
 
 func _enter_tree() -> void:
+	add_to_group("Players")
 	var id = name.to_int()
 	if id > 0:
 		set_multiplayer_authority(id)
 
+func is_local_authority() -> bool:
+	return multiplayer.has_multiplayer_peer() and is_multiplayer_authority()
+
 func _ready() -> void:
+	add_to_group("Players")
 	# Garante que o jogador inicie dentro da arena da cozinha
-	if is_multiplayer_authority():
+	if is_local_authority():
 		if position == Vector2.ZERO or global_position == Vector2.ZERO:
 			var pids = NetworkManager.players_data.keys()
 			var idx = pids.find(name.to_int())
@@ -29,7 +37,7 @@ func _ready() -> void:
 			global_position = position
 
 	# Ativa a câmera apenas para o jogador local da máquina
-	if is_multiplayer_authority() and camera:
+	if is_local_authority() and camera:
 		camera.enabled = true
 		camera.make_current()
 
@@ -40,8 +48,22 @@ func _ready() -> void:
 	hitbox.position = facing_direction * get_hitbox_reach()
 	_update_animation()
 
+func shake_camera(intensity: float, duration: float) -> void:
+	if not is_local_authority() or not camera:
+		return
+	_shake_intensity = intensity
+	_shake_timer = duration
+
+func _process(delta: float) -> void:
+	if is_local_authority() and camera:
+		if _shake_timer > 0.0:
+			_shake_timer -= delta
+			camera.offset = Vector2(randf_range(-_shake_intensity, _shake_intensity), randf_range(-_shake_intensity, _shake_intensity))
+			if _shake_timer <= 0.0:
+				camera.offset = Vector2.ZERO
+
 func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority():
+	if is_local_authority():
 		var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		if direction:
 			facing_direction = direction
@@ -67,7 +89,7 @@ func _physics_process(delta: float) -> void:
 	if is_holding:
 		var held_item = get_node_or_null(hold_item_path)
 		if held_item:
-			if is_multiplayer_authority() and held_item.get_multiplayer_authority() != multiplayer.get_unique_id():
+			if is_local_authority() and held_item.get_multiplayer_authority() != multiplayer.get_unique_id():
 				held_item.set_multiplayer_authority(multiplayer.get_unique_id())
 			if held_item is Item and held_item.monitorable:
 				held_item.set_collision_enabled(false)
@@ -81,7 +103,7 @@ func _physics_process(delta: float) -> void:
 			held_item.z_index = 0 if facing_direction.y < 0 else 2
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_multiplayer_authority():
+	if not is_local_authority():
 		return
 		
 	if event.is_action_pressed("interact"):
@@ -316,8 +338,11 @@ func interact_accepted(item_path: NodePath, item_type: int):
 	if sender > 1: # Apenas o host (peer 1 ou chamada local 0) pode aprovar
 		return
 	
+	var sfx = SoundEffects.get_instance()
 	if item_path == NodePath(""):
 		# Soltou ou entregou item
+		if sfx and is_holding:
+			sfx.play("drop")
 		is_holding = false
 		hold_item_path = NodePath("")
 		_update_animation()
@@ -331,4 +356,8 @@ func interact_accepted(item_path: NodePath, item_type: int):
 			picked_item.set_item_type(item_type)
 			picked_item.set_collision_enabled(false)
 			picked_item.set_multiplayer_authority(name.to_int())
+			if picked_item.has_method("play_squash_and_stretch"):
+				picked_item.play_squash_and_stretch(Vector2(1.3, 0.7))
+		if sfx:
+			sfx.play("pickup")
 		_update_animation()

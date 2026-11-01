@@ -10,6 +10,7 @@ class_name Bancada
 @onready var progress_bar: ProgressBar = get_node_or_null("ProgressBar")
 
 const CUT_DURATION: float = 1.5
+var _chop_sound_timer: float = 0.0
 
 func _ready() -> void:
 	if cutting_board:
@@ -56,8 +57,45 @@ func request_cut(delta_amount: float) -> void:
 		return
 		
 	cut_progress += delta_amount / CUT_DURATION
+	_chop_sound_timer += delta_amount
+	if _chop_sound_timer >= 0.20:
+		_chop_sound_timer = 0.0
+		sync_chop_step.rpc()
+		
 	if cut_progress >= 1.0:
 		cut_progress = 0.0
+		_chop_sound_timer = 0.0
 		var it = get_held_item()
 		if it:
 			it.set_item_type(it.get_cut_result())
+			sync_cut_completed.rpc()
+
+@rpc("authority", "call_local", "reliable")
+func sync_chop_step() -> void:
+	var sfx = SoundEffects.get_instance()
+	if sfx:
+		sfx.play("chop", randf_range(0.9, 1.1))
+	if cutting_board:
+		var tween = create_tween()
+		cutting_board.scale = Vector2(1.15, 0.85)
+		tween.tween_property(cutting_board, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK)
+
+@rpc("authority", "call_local", "reliable")
+func sync_cut_completed() -> void:
+	var sfx = SoundEffects.get_instance()
+	if sfx:
+		sfx.play("chop", 1.25)
+	var it = get_held_item()
+	if it and it.has_method("play_squash_and_stretch"):
+		it.play_squash_and_stretch(Vector2(1.35, 0.65))
+		
+	var ft_scene = load("res://games/overcooked/floating_text.tscn")
+	if ft_scene:
+		var ft = ft_scene.instantiate()
+		get_parent().add_child(ft)
+		ft.global_position = global_position + Vector2(0, -18)
+		ft.setup("CORTADO!", Color(1.0, 0.9, 0.2), 0.8)
+		
+	for p in get_tree().get_nodes_in_group("Players"):
+		if p.has_method("is_local_authority") and p.is_local_authority() and p.has_method("shake_camera"):
+			p.shake_camera(2.0, 0.15)

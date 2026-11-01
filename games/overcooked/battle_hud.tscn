@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://dcplofb8n4cmi"]
 
-[ext_resource type="Script" uid="uid://c6aqlthd1yyjc" path="res://games/overcooked/battle_hud.gd" id="1_script"]
+[ext_resource type="Script" path="res://games/overcooked/battle_hud.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://conenol2i8fkl" path="res://games/overcooked/assets/salad.png" id="2_salad"]
+[ext_resource type="Texture2D" uid="uid://bhbwwi70a8cu2" path="res://games/overcooked/assets/sliced_tomato.png" id="3_tomato"]
+[ext_resource type="Texture2D" uid="uid://ccvryg2007kq6" path="res://games/overcooked/assets/sliced_lettuce.png" id="4_lettuce"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_order"]
-bg_color = Color(0.12, 0.12, 0.14, 0.85)
+bg_color = Color(0.1, 0.1, 0.12, 0.88)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -45,43 +47,95 @@ script = ExtResource("1_script")
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 70.0
+offset_bottom = 60.0
 grow_horizontal = 2
 
 [node name="OrdersPanel" type="PanelContainer" parent="TopBar" unique_id=917492004]
 layout_mode = 1
-offset_left = 20.0
-offset_top = 15.0
-offset_right = 170.0
-offset_bottom = 55.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 48.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_order")
 
-[node name="HBox" type="HBoxContainer" parent="TopBar/OrdersPanel" unique_id=1245984175]
+[node name="Margin" type="MarginContainer" parent="TopBar/OrdersPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 2
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/OrdersPanel/Margin" unique_id=1245984175]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="SaladIcon" type="TextureRect" parent="TopBar/OrdersPanel/HBox" unique_id=678782703]
-custom_minimum_size = Vector2(32, 32)
+[node name="MistaBox" type="HBoxContainer" parent="TopBar/OrdersPanel/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Icon" type="TextureRect" parent="TopBar/OrdersPanel/Margin/HBox/MistaBox"]
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture = ExtResource("2_salad")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="OrderTitle" type="Label" parent="TopBar/OrdersPanel/HBox" unique_id=447984066]
+[node name="Label" type="Label" parent="TopBar/OrdersPanel/Margin/HBox/MistaBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "PEDIDO: SALADA"
+theme_override_colors/font_color = Color(0.4, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 11
+text = "Mista (+25%)"
+
+[node name="Sep1" type="VSeparator" parent="TopBar/OrdersPanel/Margin/HBox"]
+layout_mode = 2
+
+[node name="TomatoBox" type="HBoxContainer" parent="TopBar/OrdersPanel/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Icon" type="TextureRect" parent="TopBar/OrdersPanel/Margin/HBox/TomatoBox"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("3_tomato")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TopBar/OrdersPanel/Margin/HBox/TomatoBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "Tomate (+15%)"
+
+[node name="Sep2" type="VSeparator" parent="TopBar/OrdersPanel/Margin/HBox"]
+layout_mode = 2
+
+[node name="LettuceBox" type="HBoxContainer" parent="TopBar/OrdersPanel/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Icon" type="TextureRect" parent="TopBar/OrdersPanel/Margin/HBox/LettuceBox"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_lettuce")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TopBar/OrdersPanel/Margin/HBox/LettuceBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "Alface (+15%)"
 
 [node name="TugOfWarBar" type="ProgressBar" parent="TopBar" unique_id=538419651]
-custom_minimum_size = Vector2(360, 24)
+custom_minimum_size = Vector2(340, 22)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -180.0
-offset_top = 22.0
-offset_right = 180.0
-offset_bottom = 46.0
+offset_left = -170.0
+offset_top = 18.0
+offset_right = 170.0
+offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_p1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_p2")
@@ -93,13 +147,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -280.0
-offset_top = 24.0
-offset_right = -190.0
-offset_bottom = 47.0
+offset_left = -265.0
+offset_top = 18.0
+offset_right = -178.0
+offset_bottom = 41.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.3, 0.75, 1, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "🔵 P1 (Host)"
 horizontal_alignment = 2
 
@@ -108,13 +162,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 190.0
-offset_top = 24.0
-offset_right = 290.0
-offset_bottom = 47.0
+offset_left = 178.0
+offset_top = 18.0
+offset_right = 275.0
+offset_bottom = 41.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.4, 0.3, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "🔴 P2 (Rival)"
 
 [node name="VictoryPanel" type="Panel" parent="." unique_id=989699118]

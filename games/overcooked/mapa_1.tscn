@@ -7,9 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://dcplofb8n4cmi" path="res://games/overcooked/battle_hud.tscn" id="5_hud"]
 [ext_resource type="Script" path="res://games/overcooked/battle_manager.gd" id="6_bm_script"]
 [ext_resource type="Texture2D" uid="uid://dyjjmpylhvbgn" path="res://games/overcooked/assets/floor_tile.png" id="7_floor_tex"]
+[ext_resource type="Script" path="res://games/overcooked/sound_effects.gd" id="8_sfx_script"]
 
 [node name="Mapa1" type="Node2D"]
 y_sort_enabled = true
+
+[node name="SoundEffects" type="Node" parent="."]
+script = ExtResource("8_sfx_script")
 
 [node name="BattleHUD" parent="." instance=ExtResource("5_hud")]
 

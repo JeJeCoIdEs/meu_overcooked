@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c64l48h58x62k"]
+
+[ext_resource type="Script" path="res://games/overcooked/floating_text.gd" id="1_ft"]
+
+[node name="FloatingText" type="Node2D"]
+z_index = 100
+script = ExtResource("1_ft")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -12.0
+offset_right = 100.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "+25% ENTREGA!"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -35,12 +35,7 @@ func _ready() -> void:
 	# Janela de Banlist (Desbanir)
 	_setup_banlist_dialog()
 	
-	NetworkManager.players_updated.connect(
-		func():
-			update_slots()
-			hide_client_buttons()
-			enable_start_button()
-	)
+	NetworkManager.players_updated.connect(_on_players_updated)
 	NetworkManager.banlist_updated.connect(_update_banlist_ui)
 	
 	start_game.pressed.connect(_on_start_game)
@@ -48,6 +43,19 @@ func _ready() -> void:
 		leave_button.pressed.connect(_on_leave_lobby)
 	if banlist_button:
 		banlist_button.pressed.connect(_on_banlist_pressed)
+
+func _exit_tree() -> void:
+	if NetworkManager.players_updated.is_connected(_on_players_updated):
+		NetworkManager.players_updated.disconnect(_on_players_updated)
+	if NetworkManager.banlist_updated.is_connected(_update_banlist_ui):
+		NetworkManager.banlist_updated.disconnect(_update_banlist_ui)
+
+func _on_players_updated() -> void:
+	if not is_inside_tree():
+		return
+	update_slots()
+	hide_client_buttons()
+	enable_start_button()
 
 func _setup_banlist_dialog() -> void:
 	banlist_dialog = AcceptDialog.new()
@@ -67,6 +75,8 @@ func _on_leave_lobby() -> void:
 	NetworkManager.leave_lobby()
 
 func hide_client_buttons() -> void:
+	if not is_inside_tree():
+		return
 	if not NetworkManager.is_host():
 		start_game.hide()
 		if banlist_button:
@@ -78,6 +88,8 @@ func hide_client_buttons() -> void:
 			banlist_button.text = "Banidos (%d)" % NetworkManager.banned_players.size()
 
 func enable_start_button() -> void:
+	if not is_inside_tree():
+		return
 	if not NetworkManager.is_host():
 		start_game.disabled = true
 		return
@@ -96,6 +108,9 @@ func enable_start_button() -> void:
 	start_game.disabled = false
 
 func update_slots() -> void:
+	if not is_inside_tree():
+		return
+		
 	# Remover slots de jogadores que saíram
 	for node in players_container.get_children():
 		if node == player_lobby:
@@ -107,7 +122,12 @@ func update_slots() -> void:
 			
 	# Criar ou atualizar slots
 	var is_active = NetworkManager.is_multiplayer_active()
-	var my_id = multiplayer.get_unique_id() if is_active else 0
+	var my_id = 0
+	if is_active:
+		if multiplayer:
+			my_id = multiplayer.get_unique_id()
+		elif NetworkManager.multiplayer:
+			my_id = NetworkManager.multiplayer.get_unique_id()
 	var is_host = NetworkManager.is_host()
 
 	for pid in NetworkManager.players_data.keys():
